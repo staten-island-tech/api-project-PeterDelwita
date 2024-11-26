@@ -16,16 +16,20 @@ async function getData(URL) {
     }
     // Log names, scores of each school.
   } catch (error) {
-    alert("School not found"); // I plan to take the informaiton and insert it as HTML
+    alert("School not found");
   }
 }
 
 getData(URL);
 // How about a button showing the next 150? Previous/next button? (if possible)
 
-let readingThreshold = 200;
-let writingThreshold = 200;
-let mathThreshold = 200;
+// Make form function and add event listener
+
+function maintainScoreThresholds() {
+  let readingThreshold = document.inputCriticalReading;
+  let writingThreshold = document.inputWriting;
+  let mathThreshold = document.inputMath;
+}
 
 function createCards(filterMode) {
   // Load schools and SAT scores. How about a list??
@@ -33,15 +37,15 @@ function createCards(filterMode) {
     .filter((school) => {
       if ((filterMode = "reading")) {
         school.sat_critical_reading_avg_score >= readingThreshold;
-      } else if ((filterMode = "writing")) {
+      } else if (filterMode === "writing") {
         school.sat_writing_avg_score >= writingThreshold;
-      } else if ((filterMode = "math")) {
+      } else if (filterMode === "math") {
         school.sat_math_avg_score >= mathThreshold;
-      } else if ((filterMode = "all")) {
+      } else if (filterMode === "all") {
         school.sat_critical_reading_avg_score >= readingThreshold;
         school.sat_writing_avg_score >= writingThreshold;
         school.sat_math_avg_score >= mathThreshold;
-      } else if ((filterMode = "")) {
+      } else if (filterMode === "") {
         school.dbn.includes("");
       } else {
         return;
