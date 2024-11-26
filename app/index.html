@@ -11,6 +11,9 @@
     <div class="header-container w-full flex justify-center"> <!--Width 100%, color differently from card container, display flex, justify content-->
       <h1 class="header text-[36px] text-center">2012 NYC SAT Scores</h1> <!--Red text, font size-->
     </div>
+    <div class="explanation-container w-full flex justify-center">
+      <h2 class="explanation text-[20px] text-center">The 2012 SAT was divided into three sections: critical reading, writing, and math. The minimum possible score for each section was 200 and the maximum was 800, adding up to a total of 2400 possible points.</h2> <!--Explanation here because visitors may not be familiar with how the 2012 SAT was scored.-->
+    </div>
     <!-- Form -->
     <div class="form-container w-full flex justify-center">
       <form class="form">
@@ -29,8 +32,15 @@
         <button class="button">Submit Scores</button>
       </form>
     </div>
+    <div class="button-container w-full flex justify-center">
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="critical-reading" data-action="filter">Reading</button>
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="writing" data-action="filter">Writing</button>
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="math" data-action="filter">Math</button>
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="all" data-action="filter">All Three</button>
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="reset" data-action="reset">Reset Filters</button>
+    </div>
     <!--Card Container-->
-    <div class="container w-full flex justify-center"></div>
+    <div class="container w-full flex justify-center flex-wrap"></div>
     </div>
     <script type="module" src="JS/main.js"></script>
   </body>
