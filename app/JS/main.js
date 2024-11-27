@@ -25,28 +25,32 @@ getData(URL);
 
 // Make form function and add event listener
 
-function maintainScoreThresholds() {
-  let readingThreshold = document.inputCriticalReading;
-  let writingThreshold = document.inputWriting;
-  let mathThreshold = document.inputMath;
-}
-
 function createCards(filterMode) {
   // Load schools and SAT scores. How about a list??
   data
     .filter((school) => {
       if ((filterMode = "reading")) {
-        school.sat_critical_reading_avg_score >= readingThreshold;
+        school.sat_critical_reading_avg_score >=
+          DOMSelectors.inputCriticalReading.value &&
+          school.sat_critical_reading_avg_score != "s";
       } else if (filterMode === "writing") {
-        school.sat_writing_avg_score >= writingThreshold;
+        school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
+          school.sat_writing_avg_score != "s";
       } else if (filterMode === "math") {
-        school.sat_math_avg_score >= mathThreshold;
+        school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
+          school.sat_math_avg_score != "s";
       } else if (filterMode === "all") {
-        school.sat_critical_reading_avg_score >= readingThreshold;
-        school.sat_writing_avg_score >= writingThreshold;
-        school.sat_math_avg_score >= mathThreshold;
+        school.sat_critical_reading_avg_score >=
+          DOMSelectors.inputCriticalReading.value &&
+          school.sat_critical_reading_avg_score != "s";
+        school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
+          school.sat_writing_avg_score != "s";
+        school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
+          school.sat_math_avg_score != "s";
       } else if (filterMode === "") {
         school.dbn.includes("");
+      } else if (filterMode === "s") {
+        school.num_of_sat_test_takers == "s";
       } else {
         return;
       }
@@ -71,8 +75,6 @@ function createCards(filterMode) {
     });
 }
 
-createCards("");
-
 // Cards for buttons
 
 function filterByReading() {
@@ -93,6 +95,11 @@ function filterByMath() {
 function filterByAll() {
   DOMSelectors.container.innerHTML("");
   createCards("all");
+}
+
+function filterUnknownValues() {
+  DOMSelectors.container.innerHTML("");
+  createCards("s");
 }
 
 function resetFilters() {
@@ -116,8 +123,16 @@ DOMSelectors.applyEverythingButton.addEventListener("click", function () {
   filterByAll();
 });
 
+DOMSelectors.unknownButton.addEventListener("click", function () {
+  filterUnknownValues();
+});
+
 DOMSelectors.resetFiltersButton.addEventListener("click", function () {
   resetFilters();
+});
+
+DOMSelectors.form.addEventListener("submit", function (event) {
+  event.preventDefault();
 });
 // Plan:
 // - Make a form allowing the user to input math, critical reading, and writing scores and test takers

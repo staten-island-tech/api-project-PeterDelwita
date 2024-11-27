@@ -19,15 +19,15 @@
       <form class="form">
         <div class="form-input">
           <label for="type">Critical Reading Score</label>
-          <input type="number" name="critical-reading" placeholder="400" min="200" max="800" id="critical-reading" />
+          <input type="number" name="critical-reading" placeholder="400" min="200" max="800" id="critical-reading" required/>
         </div>
         <div class="form-input">
           <label for="type">Writing Score</label>
-          <input type="number" name="writing" placeholder="400" min="200" max="800" id="writing" />
+          <input type="number" name="writing" placeholder="400" min="200" max="800" id="writing" required/>
         </div>
         <div class="form-input">
           <label for="type">Math Score</label>
-          <input type="number" name="math" placeholder="400" min="200" max="800" id="math" />
+          <input type="number" name="math" placeholder="400" min="200" max="800" id="math" required />
         </div>
         <button class="button">Submit Scores</button>
       </form>
@@ -37,6 +37,7 @@
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="writing-button" data-action="filter">Writing</button>
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="math-button" data-action="filter">Math</button>
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="all" data-action="filter">All Three</button>
+      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="unknown" data-action="filter">Unknown</button>
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="reset" data-action="reset">Reset Filters</button>
     </div>
     <!--Card Container-->
