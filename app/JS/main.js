@@ -13,6 +13,24 @@ async function getData(URL) {
     } else {
       const data = await response.json(); // Turns response into json file we can use
       console.log(data);
+      data.forEach((school) => {
+        const cardHTML = `
+      <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
+        <h2 class="text 2xl font-sans" id="school-name">${school.school_name}</h2>
+        <h3 class="dbn">${school.dbn}</h2>
+        <ul class="sat-avg-scores">
+          <li id="math-scores">${school.sat_math_avg_score}</li>
+          <li id="writing-scores">${school.sat_writing_avg_score}</li>
+          <li id="reading-scores">${school.sat_critical_reading_avg_score}</li>
+          <li id="test-takers">${school.num_of_sat_test_takers}</li>
+      </div>
+  `;
+        DOMSelectors.container.insertAdjacentHTML(
+          // Make some cards
+          "beforeend",
+          cardHTML
+        );
+      }); // Supposed to insert the cards into the container.
     }
     // Log names, scores of each school.
   } catch (error) {
@@ -26,6 +44,8 @@ getData(URL);
 // Make form function and add event listener
 
 function createCards(filterMode) {
+  // Run only when we change filtermode
+  // Should I split this?
   // Load schools and SAT scores. How about a list??
   data
     .filter((school) => {
@@ -75,15 +95,15 @@ function createCards(filterMode) {
     });
 }
 
-// Cards for buttons
+// Cards for buttons (must update with API)
 
 function filterByReading() {
   DOMSelectors.container.innerHTML("");
-  createCards("reading");
+  getData(), createCards("reading");
 }
 
 function filterByWriting() {
-  DOMSelectors.container.innnerHTML("");
+  DOMSelectors.container.innerHTML("");
   createCards("writing");
 }
 
