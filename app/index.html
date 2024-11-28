@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html data-theme="synthwave" lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYC SAT Scores 2012</title>
     <link rel="stylesheet" href="css/style.css"> <!--Needed for Tailwind to work-->
   </head>
-  <body>
+  <body class="m-0 p-0">
     <!-- Header -->
     <div class="header-container w-full flex justify-center"> <!--Width 100%, color differently from card container, display flex, justify content-->
       <h1 class="header text-[36px] text-center">2012 NYC SAT Scores</h1> <!--Red text, font size-->
@@ -37,11 +37,11 @@
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="writing-button" data-action="filter">Writing</button>
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="math-button" data-action="filter">Math</button>
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="all" data-action="filter">All Three</button>
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="unknown" data-action="filter">Unknown</button>
+      <!-- <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="unknown" data-action="filter">Unknown</button> -->
       <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="reset" data-action="reset">Reset Filters</button>
     </div>
     <!--Card Container-->
-    <div class="container w-full flex justify-center flex-wrap"></div>
+    <div class="container max-w-full w-full flex justify-center flex-wrap"></div>
     </div>
     <script type="module" src="JS/main.js"></script>
   </body>

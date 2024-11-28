@@ -19,13 +19,13 @@ async function getData(URL, filterMode) {
         .forEach((school) => {
           const cardHTML = `
             <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
-              <h2 class="text 2xl font-sans" id="school-name">"School Name:"${school.school_name}</h2>
-              <h3 class="dbn">"DBN:" ${school.dbn}</h2>
+              <h2 class="text 2xl font-sans" id="school-name">School Name: ${school.school_name}</h2>
+              <h3 class="dbn">DBN: ${school.dbn}</h2>
               <ul class="sat-avg-scores">
-                <li id="math-scores">"Math:" ${school.sat_math_avg_score}</li>
-                <li id="writing-scores">"Writing:" ${school.sat_writing_avg_score}</li>
-                <li id="reading-scores">"Critical Reading:"${school.sat_critical_reading_avg_score}</li>
-                <li id="test-takers">"Number of Takers:"${school.num_of_sat_test_takers}</li>
+                <li id="math-scores">Math: ${school.sat_math_avg_score}</li>
+                <li id="writing-scores">Writing: ${school.sat_writing_avg_score}</li>
+                <li id="reading-scores">Critical Reading: ${school.sat_critical_reading_avg_score}</li>
+                <li id="test-takers">Number of Takers: ${school.num_of_sat_test_takers}</li>
             </div>
           `;
           DOMSelectors.container.insertAdjacentHTML(
@@ -46,44 +46,37 @@ getData(URL, "");
 
 // Make form function and add event listener
 
-function filterCards(filterMode) {
+function filterCards(school, filterMode) {
   // Run only when we change filtermode
+  if (
+    school.sat_critical_reading_avg_score === "s" ||
+    school.sat_writing_avg_score === "s" ||
+    school.sat_math_avg_score === "s" ||
+    !school
+  ) {
+    return false; // Guard clause, remove invalid scores (don't list schools saying "s")
+  }
+  // Reading Scores
   if (filterMode === "reading") {
     return (
       school.sat_critical_reading_avg_score >=
-        DOMSelectors.inputCriticalReading.value &&
-      school.sat_critical_reading_avg_score !== "s"
+      DOMSelectors.inputCriticalReading.value
     );
-    // Writing
+    // Writing Scores
   } else if (filterMode === "writing") {
-    return (
-      school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
-      school.sat_writing_avg_score !== "s"
-    );
-    // Math
+    return school.sat_writing_avg_score >= DOMSelectors.inputWriting.value;
+    // Math Scores
   } else if (filterMode === "math") {
-    return (
-      school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
-      school.sat_math_avg_score !== "s"
-    );
+    return school.sat_math_avg_score >= DOMSelectors.inputMath.value;
     // All Three
   } else if (filterMode === "all") {
     return (
       school.sat_critical_reading_avg_score >=
         DOMSelectors.inputCriticalReading.value &&
-      school.sat_critical_reading_avg_score !== "s" &&
       school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
-      school.sat_writing_avg_score !== "s" &&
-      school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
-      school.sat_math_avg_score !== "s"
+      school.sat_math_avg_score >= DOMSelectors.inputMath.value
     );
     // No Filter
-  } else if (filterMode === "") {
-    return true;
-    // Unknown Values
-  } else if (filterMode === "s") {
-    return school.num_of_sat_test_takers == "s";
-    // Guard Clause
   } else {
     return true;
   }
@@ -111,10 +104,10 @@ function filterByAll() {
   getData(URL, "all");
 }
 
-function filterUnknownValues() {
-  DOMSelectors.container.innerHTML("");
-  getData(URL, "s");
-}
+// function filterUnknownValues() {
+//   DOMSelectors.container.innerHTML("");
+//   getData(URL, "s");
+// }
 
 function resetFilters() {
   DOMSelectors.container.innerHTML("");
@@ -137,9 +130,9 @@ DOMSelectors.applyEverythingButton.addEventListener("click", function () {
   filterByAll();
 });
 
-DOMSelectors.unknownButton.addEventListener("click", function () {
-  filterUnknownValues();
-});
+// DOMSelectors.unknownButton.addEventListener("click", function () {
+//   filterUnknownValues();
+// });
 
 DOMSelectors.resetFiltersButton.addEventListener("click", function () {
   resetFilters();

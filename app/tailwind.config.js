@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  daisyui: {
-    themes: ["synthwave"],
-  },
+  // daisyui: {
+  //   themes: ["synthwave"],
+  // },
   plugins: [require("daisyui")],
 };
