@@ -3,7 +3,7 @@ import { DOMSelectors } from "./dom.js";
 
 const URL = "https://data.cityofnewyork.us/resource/f9bf-2cp4.json";
 
-async function getData(URL) {
+async function getData(URL, filterMode) {
   try {
     const response = await fetch(URL);
     console.log(response); // Have to log this to see status
@@ -13,24 +13,27 @@ async function getData(URL) {
     } else {
       const data = await response.json(); // Turns response into json file we can use
       console.log(data);
-      data.forEach((school) => {
-        const cardHTML = `
-      <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
-        <h2 class="text 2xl font-sans" id="school-name">${school.school_name}</h2>
-        <h3 class="dbn">${school.dbn}</h2>
-        <ul class="sat-avg-scores">
-          <li id="math-scores">${school.sat_math_avg_score}</li>
-          <li id="writing-scores">${school.sat_writing_avg_score}</li>
-          <li id="reading-scores">${school.sat_critical_reading_avg_score}</li>
-          <li id="test-takers">${school.num_of_sat_test_takers}</li>
-      </div>
-  `;
-        DOMSelectors.container.insertAdjacentHTML(
-          // Make some cards
-          "beforeend",
-          cardHTML
-        );
-      }); // Supposed to insert the cards into the container.
+      // Make cards
+      data
+        .filter((school) => filterCards(school, filterMode))
+        .forEach((school) => {
+          const cardHTML = `
+            <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
+              <h2 class="text 2xl font-sans" id="school-name">"School Name:"${school.school_name}</h2>
+              <h3 class="dbn">"DBN:" ${school.dbn}</h2>
+              <ul class="sat-avg-scores">
+                <li id="math-scores">"Math:" ${school.sat_math_avg_score}</li>
+                <li id="writing-scores">"Writing:" ${school.sat_writing_avg_score}</li>
+                <li id="reading-scores">"Critical Reading:"${school.sat_critical_reading_avg_score}</li>
+                <li id="test-takers">"Number of Takers:"${school.num_of_sat_test_takers}</li>
+            </div>
+          `;
+          DOMSelectors.container.insertAdjacentHTML(
+            // Make some cards
+            "beforeend",
+            cardHTML
+          );
+        }); // Supposed to insert the cards into the container.
     }
     // Log names, scores of each school.
   } catch (error) {
@@ -38,93 +41,84 @@ async function getData(URL) {
   }
 }
 
-getData(URL);
+getData(URL, "");
 // How about a button showing the next 150? Previous/next button? (if possible)
 
 // Make form function and add event listener
 
-function createCards(filterMode) {
+function filterCards(filterMode) {
   // Run only when we change filtermode
-  // Should I split this?
-  // Load schools and SAT scores. How about a list??
-  data
-    .filter((school) => {
-      if ((filterMode = "reading")) {
-        school.sat_critical_reading_avg_score >=
-          DOMSelectors.inputCriticalReading.value &&
-          school.sat_critical_reading_avg_score != "s";
-      } else if (filterMode === "writing") {
-        school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
-          school.sat_writing_avg_score != "s";
-      } else if (filterMode === "math") {
-        school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
-          school.sat_math_avg_score != "s";
-      } else if (filterMode === "all") {
-        school.sat_critical_reading_avg_score >=
-          DOMSelectors.inputCriticalReading.value &&
-          school.sat_critical_reading_avg_score != "s";
-        school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
-          school.sat_writing_avg_score != "s";
-        school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
-          school.sat_math_avg_score != "s";
-      } else if (filterMode === "") {
-        school.dbn.includes("");
-      } else if (filterMode === "s") {
-        school.num_of_sat_test_takers == "s";
-      } else {
-        return;
-      }
-    })
-    .forEach((school) => {
-      const cardHTML = `
-      <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
-        <h2 class="text 2xl font-sans" id="school-name">${school.school_name}</h2>
-        <h3 class="dbn">${school.dbn}</h2>
-        <ul class="sat-avg-scores">
-          <li id="math-scores">${school.sat_math_avg_score}</li>
-          <li id="writing-scores">${school.sat_writing_avg_score}</li>
-          <li id="reading-scores">${school.sat_critical_reading_avg_score}</li>
-          <li id="test-takers">${school.num_of_sat_test_takers}</li>
-      </div>
-  `;
-      DOMSelectors.container.insertAdjacentHTML(
-        // Make some cards
-        "beforeend",
-        cardHTML
-      );
-    });
+  if (filterMode === "reading") {
+    return (
+      school.sat_critical_reading_avg_score >=
+        DOMSelectors.inputCriticalReading.value &&
+      school.sat_critical_reading_avg_score !== "s"
+    );
+    // Writing
+  } else if (filterMode === "writing") {
+    return (
+      school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
+      school.sat_writing_avg_score !== "s"
+    );
+    // Math
+  } else if (filterMode === "math") {
+    return (
+      school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
+      school.sat_math_avg_score !== "s"
+    );
+    // All Three
+  } else if (filterMode === "all") {
+    return (
+      school.sat_critical_reading_avg_score >=
+        DOMSelectors.inputCriticalReading.value &&
+      school.sat_critical_reading_avg_score !== "s" &&
+      school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
+      school.sat_writing_avg_score !== "s" &&
+      school.sat_math_avg_score >= DOMSelectors.inputMath.value &&
+      school.sat_math_avg_score !== "s"
+    );
+    // No Filter
+  } else if (filterMode === "") {
+    return true;
+    // Unknown Values
+  } else if (filterMode === "s") {
+    return school.num_of_sat_test_takers == "s";
+    // Guard Clause
+  } else {
+    return true;
+  }
 }
 
 // Cards for buttons (must update with API)
 
 function filterByReading() {
   DOMSelectors.container.innerHTML("");
-  getData(), createCards("reading");
+  getData(URL, "reading");
 }
 
 function filterByWriting() {
   DOMSelectors.container.innerHTML("");
-  createCards("writing");
+  getData(URL, "writing");
 }
 
 function filterByMath() {
   DOMSelectors.container.innerHTML("");
-  createCards("math");
+  getData(URL, "math");
 }
 
 function filterByAll() {
   DOMSelectors.container.innerHTML("");
-  createCards("all");
+  getData(URL, "all");
 }
 
 function filterUnknownValues() {
   DOMSelectors.container.innerHTML("");
-  createCards("s");
+  getData(URL, "s");
 }
 
 function resetFilters() {
   DOMSelectors.container.innerHTML("");
-  createCards("");
+  getData(URL, "");
 }
 
 DOMSelectors.criticalReadingButton.addEventListener("click", function () {
