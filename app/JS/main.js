@@ -56,25 +56,32 @@ function filterCards(school, filterMode) {
   ) {
     return false; // Guard clause, remove invalid scores (don't list schools saying "s")
   }
+
+  const defaultReading = 400;
+  const defaultWriting = 400;
+  const defaultMath = 400;
+
+  const minReading =
+    parseInt(DOMSelectors.inputCriticalReading.value) || defaultReading;
+  const minWriting =
+    parseInt(DOMSelectors.inputWriting.value) || defaultWriting;
+  const minMath = parseInt(DOMSelectors.inputMath.value) || defaultMath;
+
   // Reading Scores
   if (filterMode === "reading") {
-    return (
-      school.sat_critical_reading_avg_score >=
-      DOMSelectors.inputCriticalReading.value
-    );
+    return school.sat_critical_reading_avg_score >= minReading;
     // Writing Scores
   } else if (filterMode === "writing") {
-    return school.sat_writing_avg_score >= DOMSelectors.inputWriting.value;
+    return school.sat_writing_avg_score >= minWriting;
     // Math Scores
   } else if (filterMode === "math") {
-    return school.sat_math_avg_score >= DOMSelectors.inputMath.value;
+    return school.sat_math_avg_score >= minMath;
     // All Three
   } else if (filterMode === "all") {
     return (
-      school.sat_critical_reading_avg_score >=
-        DOMSelectors.inputCriticalReading.value &&
-      school.sat_writing_avg_score >= DOMSelectors.inputWriting.value &&
-      school.sat_math_avg_score >= DOMSelectors.inputMath.value
+      school.sat_critical_reading_avg_score >= minReading &&
+      school.sat_writing_avg_score >= minWriting &&
+      school.sat_math_avg_score >= minMath
     );
     // No Filter
   } else {
@@ -85,22 +92,22 @@ function filterCards(school, filterMode) {
 // Cards for buttons (must update with API)
 
 function filterByReading() {
-  DOMSelectors.container.innerHTML("");
+  DOMSelectors.container.innerHTML = "";
   getData(URL, "reading");
 }
 
 function filterByWriting() {
-  DOMSelectors.container.innerHTML("");
+  DOMSelectors.container.innerHTML = "";
   getData(URL, "writing");
 }
 
 function filterByMath() {
-  DOMSelectors.container.innerHTML("");
+  DOMSelectors.container.innerHTML = "";
   getData(URL, "math");
 }
 
 function filterByAll() {
-  DOMSelectors.container.innerHTML("");
+  DOMSelectors.container.innerHTML = "";
   getData(URL, "all");
 }
 
@@ -110,7 +117,7 @@ function filterByAll() {
 // }
 
 function resetFilters() {
-  DOMSelectors.container.innerHTML("");
+  DOMSelectors.container.innerHTML = "";
   getData(URL, "");
 }
 
@@ -138,9 +145,6 @@ DOMSelectors.resetFiltersButton.addEventListener("click", function () {
   resetFilters();
 });
 
-DOMSelectors.form.addEventListener("submit", function (event) {
-  event.preventDefault();
-});
 // Plan:
 // - Make a form allowing the user to input math, critical reading, and writing scores and test takers
 // - Filter thresholds will change based on what the user inputs. Text should change once user submits form
