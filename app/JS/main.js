@@ -18,14 +18,14 @@ async function getData(URL, filterMode) {
         .filter((school) => filterCards(school, filterMode))
         .forEach((school) => {
           const cardHTML = `
-            <div class="card h-80 w-[22%] border-3 border-black rounded-sm m-8 p-8 flex flex-wrap justify-center items-center">
-              <h2 class="text 2xl font-sans" id="school-name">School Name: ${school.school_name}</h2>
-              <h3 class="dbn">DBN: ${school.dbn}</h2>
+            <div class="h-120 w-[25%] border-3 border-solid border-2 bg-gray-900 border-blue-600 rounded-2xl flex m-8 p-12 flex-wrap justify-center items-center max-[1150px]:w-[40%] max-[600px]:w-[80%] max-[350px]:p-8">
+              <h2 class="text-[21px] min-[800px]:text-[24px] text-blue-600 text-center" id="school-name">School Name: ${school.school_name}</h2>
               <ul class="sat-avg-scores">
-                <li id="math-scores">Math: ${school.sat_math_avg_score}</li>
-                <li id="writing-scores">Writing: ${school.sat_writing_avg_score}</li>
-                <li id="reading-scores">Critical Reading: ${school.sat_critical_reading_avg_score}</li>
-                <li id="test-takers">Number of Takers: ${school.num_of_sat_test_takers}</li>
+                <li class="text-[16px] text-blue-600" id="math-scores">DBN: ${school.dbn}</li>
+                <li class="text-[16px] text-blue-600" id="math-scores">Math: ${school.sat_math_avg_score}</li>
+                <li class="text-[16px] text-blue-600" id="writing-scores">Writing: ${school.sat_writing_avg_score}</li>
+                <li class="text-[16px] text-blue-600" "id="reading-scores">Critical Reading: ${school.sat_critical_reading_avg_score}</li>
+                <li class="text-[16px] text-blue-600" id="test-takers">Number of Takers: ${school.num_of_sat_test_takers}</li>
             </div>
           `;
           DOMSelectors.container.insertAdjacentHTML(
@@ -89,7 +89,7 @@ function filterCards(school, filterMode) {
   }
 }
 
-// Cards for buttons (must update with API)
+// Cards for buttons
 
 function filterByReading() {
   DOMSelectors.container.innerHTML = "";
@@ -111,11 +111,6 @@ function filterByAll() {
   getData(URL, "all");
 }
 
-// function filterUnknownValues() {
-//   DOMSelectors.container.innerHTML("");
-//   getData(URL, "s");
-// }
-
 function resetFilters() {
   DOMSelectors.container.innerHTML = "";
   getData(URL, "");
@@ -136,10 +131,6 @@ DOMSelectors.mathButton.addEventListener("click", function () {
 DOMSelectors.applyEverythingButton.addEventListener("click", function () {
   filterByAll();
 });
-
-// DOMSelectors.unknownButton.addEventListener("click", function () {
-//   filterUnknownValues();
-// });
 
 DOMSelectors.resetFiltersButton.addEventListener("click", function () {
   resetFilters();

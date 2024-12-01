@@ -6,41 +6,41 @@
     <title>NYC SAT Scores 2012</title>
     <link rel="stylesheet" href="css/style.css"> <!--Needed for Tailwind to work-->
   </head>
-  <body class="m-0 p-0">
+  <body class="m-0 p-0 bg-black">
     <!-- Header -->
-    <div class="header-container w-full flex justify-center"> <!--Width 100%, color differently from card container, display flex, justify content-->
-      <h1 class="header text-[36px] text-center">2012 NYC SAT Scores</h1> <!--Red text, font size-->
+    <div class="header-container w-full flex justify-center bg-gray-900"> <!--Width 100%, color differently from card container, display flex, justify content-->
+      <h1 class="header text-[36px] text-blue-600 text-center">2012 NYC SAT Scores</h1> <!--Red text, font size-->
     </div>
-    <div class="explanation-container w-full flex justify-center">
-      <h2 class="explanation text-[20px] text-center">The 2012 SAT was divided into three sections: critical reading, writing, and math. The minimum possible score for each section was 200 and the maximum was 800, adding up to a total of 2400 possible points.</h2> <!--Explanation here because visitors may not be familiar with how the 2012 SAT was scored.-->
+    <div class="explanation-container w-full flex justify-center bg-gray-900">
+      <h2 class="explanation text-[20px] text-blue-600 text-center">The 2012 SAT was divided into three sections: critical reading, writing, and math. The minimum possible score for each section was 200 and the maximum was 800, adding up to a total of 2400 possible points.</h2> <!--Explanation here because visitors may not be familiar with how the 2012 SAT was scored.-->
     </div>
     <!-- Form -->
-    <div class="form-container w-full flex justify-center">
+    <div class="form-container w-full flex justify-center bg-gray-900">
       <form class="form">
         <div class="form-input">
-          <label for="type">Critical Reading Score</label>
-          <input type="number" name="critical-reading" placeholder="400" min="200" max="800" id="critical-reading" required/>
+          <label class="text-[16px] text-blue-600" for="type">Critical Reading Score</label>
+          <input class="text-[16px] text-blue-600 bg-black border-3 border-solid border-blue-600" type="number" name="critical-reading" placeholder="400" min="200" max="800" id="critical-reading" required/>
         </div>
         <div class="form-input">
-          <label for="type">Writing Score</label>
-          <input type="number" name="writing" placeholder="400" min="200" max="800" id="writing" required/>
+          <label class="text-[16px] text-blue-600" for="type">Writing Score</label>
+          <input class="text-[16px] text-blue-600 bg-black border-3 border-solid border-blue-600" type="number" name="writing" placeholder="400" min="200" max="800" id="writing" required/>
         </div>
         <div class="form-input">
-          <label for="type">Math Score</label>
-          <input type="number" name="math" placeholder="400" min="200" max="800" id="math" required />
+          <label class="text-[16px] text-blue-600" for="type">Math Score</label>
+          <input class="text-[16px] text-blue-600 bg-black border-3 border-solid border-blue-600" type="number" name="math" placeholder="400" min="200" max="800" id="math" required />
         </div>
       </form>
     </div>
-    <div class="button-container w-full flex justify-center">
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="critical-reading-button" data-action="filter">Reading</button>
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="writing-button" data-action="filter">Writing</button>
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="math-button" data-action="filter">Math</button>
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="all" data-action="filter">All Three</button>
+    <div class="button-container w-full flex justify-center flex-wrap bg-gray-900">
+      <button class="btn border-3 border-blue-600 bg-black rounded-md text-[16px] text-blue-600 text-base m-[5px]" id="critical-reading-button" data-action="filter">Reading</button>
+      <button class="btn border-3 border-blue-600 bg-black rounded-md text-[16px] text-blue-600 text-base m-[5px]" id="writing-button" data-action="filter">Writing</button>
+      <button class="btn border-3 border-blue-600 bg-black rounded-md text-[16px] text-blue-600 text-base m-[5px]" id="math-button" data-action="filter">Math</button>
+      <button class="btn border-3 border-blue-600 bg-black rounded-md text-[16px] text-blue-600 text-base m-[5px]" id="all" data-action="filter">All Three</button>
       <!-- <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="unknown" data-action="filter">Unknown</button> -->
-      <button class="btn border-3 border-black rounded-sm text-base m-[5px]" id="reset" data-action="reset">Reset Filters</button>
+      <button class="btn border-3 border-blue-600 bg-black rounded-md text-[16px] text-blue-600 text-base m-[5px]" id="reset" data-action="reset">Reset Filters</button>
     </div>
     <!--Card Container-->
-    <div class="container max-w-full w-full flex justify-center flex-wrap"></div>
+    <div class="container bg-black max-w-full w-full flex justify-center flex-wrap"></div>
     </div>
     <script type="module" src="JS/main.js"></script>
   </body>
