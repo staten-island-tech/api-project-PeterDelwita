@@ -19,12 +19,14 @@ async function getData(URL, filterMode) {
         .forEach((school) => {
           const cardHTML = `
             <div class="h-120 w-[25%] border-3 border-solid border-2 bg-gray-900 border-blue-600 rounded-2xl flex m-8 p-12 flex-wrap justify-center items-center max-[1150px]:w-[40%] max-[600px]:w-[80%] max-[350px]:p-8">
-              <h2 class="text-[21px] min-[800px]:text-[24px] text-blue-600 text-center" id="school-name">School Name: ${school.school_name}</h2>
+              <div class="container w-full flex justify-center">
+                <h2 class="text-[21px] min-[800px]:text-[24px] text-blue-600 text-center" id="school-name">School Name: ${school.school_name}</h2>
+              </div>
               <ul class="sat-avg-scores">
                 <li class="text-[16px] text-blue-600" id="math-scores">DBN: ${school.dbn}</li>
                 <li class="text-[16px] text-blue-600" id="math-scores">Math: ${school.sat_math_avg_score}</li>
                 <li class="text-[16px] text-blue-600" id="writing-scores">Writing: ${school.sat_writing_avg_score}</li>
-                <li class="text-[16px] text-blue-600" "id="reading-scores">Critical Reading: ${school.sat_critical_reading_avg_score}</li>
+                <li class="text-[16px] text-blue-600" id="reading-scores">Critical Reading: ${school.sat_critical_reading_avg_score}</li>
                 <li class="text-[16px] text-blue-600" id="test-takers">Number of Takers: ${school.num_of_sat_test_takers}</li>
             </div>
           `;
@@ -83,6 +85,17 @@ function filterCards(school, filterMode) {
       school.sat_writing_avg_score >= minWriting &&
       school.sat_math_avg_score >= minMath
     );
+    // Filter by Borough
+  } else if (filterMode === "manhattan") {
+    return school.dbn.includes("M");
+  } else if (filterMode === "bronx") {
+    return school.dbn.includes("X");
+  } else if (filterMode === "brooklyn") {
+    return school.dbn.includes("K");
+  } else if (filterMode === "queens") {
+    return school.dbn.includes("Q");
+  } else if (filterMode === "statenisland") {
+    return school.dbn.includes("R");
     // No Filter
   } else {
     return true;
@@ -111,6 +124,31 @@ function filterByAll() {
   getData(URL, "all");
 }
 
+function filterManhattan() {
+  DOMSelectors.container.innerHTML = "";
+  getData(URL, "manhattan");
+}
+
+function filterBronx() {
+  DOMSelectors.container.innerHTML = "";
+  getData(URL, "bronx");
+}
+
+function filterBrooklyn() {
+  DOMSelectors.container.innerHTML = "";
+  getData(URL, "brooklyn");
+}
+
+function filterQueens() {
+  DOMSelectors.container.innerHTML = "";
+  getData(URL, "queens");
+}
+
+function filterStatenIsland() {
+  DOMSelectors.container.innerHTML = "";
+  getData(URL, "statenisland");
+}
+
 function resetFilters() {
   DOMSelectors.container.innerHTML = "";
   getData(URL, "");
@@ -132,14 +170,34 @@ DOMSelectors.applyEverythingButton.addEventListener("click", function () {
   filterByAll();
 });
 
+DOMSelectors.manhattanButton.addEventListener("click", function () {
+  filterManhattan();
+});
+
+DOMSelectors.bronxButton.addEventListener("click", function () {
+  filterBronx();
+});
+
+DOMSelectors.brooklynButton.addEventListener("click", function () {
+  filterBrooklyn();
+});
+
+DOMSelectors.queensButton.addEventListener("click", function () {
+  filterQueens();
+});
+
+DOMSelectors.statenIslandButton.addEventListener("click", function () {
+  filterStatenIsland();
+});
+
 DOMSelectors.resetFiltersButton.addEventListener("click", function () {
   resetFilters();
 });
 
 // Plan:
-// - Make a form allowing the user to input math, critical reading, and writing scores and test takers
+// - Make a form allowing the user to input math, critical reading, and writing scores
 // - Filter thresholds will change based on what the user inputs. Text should change once user submits form
-// - Make cards like in the Vite project, add filter buttons based on scores and text takers
+// - Make cards like in the Vite project, add filter buttons based on scores
 // - API doesn't have images; make text big to compensate. Have good colors
 // - If possible, add previous/next pages
 // - SAT worked differently in 2012 than it did today; add explanations for site visitors on how scoring worked
