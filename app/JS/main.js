@@ -1,7 +1,7 @@
 import "../css/style.css";
 import { DOMSelectors } from "./dom.js";
 
-const URL = "https://data.cityofnewyork.us/resource/f9bf-2cp4.json";
+const URL = "https://data.cityofnewyork.us/resource/f9bf-2cp4.json"; // Credit to NYC Open Data
 
 async function getData(URL, filterMode) {
   try {
@@ -18,7 +18,7 @@ async function getData(URL, filterMode) {
         .filter((school) => filterCards(school, filterMode))
         .forEach((school) => {
           const cardHTML = `
-            <div class="h-120 w-[25%] border-3 border-solid border-2 bg-gray-900 border-blue-600 rounded-2xl flex m-8 p-12 flex-wrap justify-center items-center max-[1150px]:w-[40%] max-[600px]:w-[80%] max-[350px]:p-8">
+            <div class="h-120 w-[25%] border-solid border-2 bg-gray-900 border-blue-600 rounded-2xl flex m-8 p-12 flex-wrap justify-center items-center max-[1150px]:w-[40%] max-[600px]:w-[80%] max-[350px]:p-8">
               <div class="container w-full flex justify-center">
                 <h2 class="text-[21px] min-[800px]:text-[24px] text-blue-600 text-center" id="school-name">School Name: ${school.school_name}</h2>
               </div>
