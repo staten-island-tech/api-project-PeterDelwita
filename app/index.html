@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-black">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYC SAT Scores 2012</title>
     <link rel="stylesheet" href="css/style.css"> <!--Needed for Tailwind to work-->
   </head>
-  <body class="m-0 p-0 bg-black">
+  <body>
     <!-- Header -->
     <div class="header-container w-full flex justify-center bg-gray-900"> <!--Width 100%, color differently from card container, display flex, justify content-->
       <h1 class="header text-[40px] font-medium text-blue-600 text-center">2012 NYC SAT Scores</h1>
@@ -15,6 +15,9 @@
       <h2 class="explanation text-[20px] text-blue-600 text-center">The 2012 SAT was divided into three sections: critical reading, writing, and math. The minimum possible score for each section was 200 and the maximum was 800, adding up to a total of 2400 possible points. Schools with or exceeding all, or any, of each input will be shown.</h2> <!--Explanation here because visitors may not be familiar with how the 2012 SAT was scored.-->
     </div>
     <!-- Form -->
+    <div class="text-container w-full flex justify-center bg-gray-900">
+      <h2 class="text-[36px] font-medium text-blue-600 text-center mt-4">Filter by Grade:</h2>
+    </div>
     <div class="form-container w-full flex justify-center bg-gray-900">
       <form class="form bg-black border-solid border-2 border-blue-600 rounded-2xl m-6 p-6">
         <div class="form-input">
@@ -36,6 +39,11 @@
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="writing-button" data-action="filter">Writing</button>
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="math-button" data-action="filter">Math</button>
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="all" data-action="filter">All Three</button>
+    </div>
+    <div class="text-container w-full flex justify-center bg-gray-900">
+      <h2 class="text-[36px] font-medium text-blue-600 text-center mt-5 mb-3">Filter by Borough:</h2>
+    </div>
+    <div class="borough-button-container pb-2 w-full flex justify-center flex-wrap bg-gray-900">
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="manhattan" data-action="filter">Manhattan (M)</button>
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="bronx" data-action="filter">Bronx (X)</button>
       <button class="btn border-3 border-blue-600 bg-black rounded-md text-[20px] text-blue-600 h-8 leading-8 m-[5px]" id="brooklyn" data-action="filter">Brooklyn (K)</button>
